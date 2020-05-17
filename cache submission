@@ -1,0 +1,32 @@
+##the below function is used to explain the formation of cache matrix that includes inverse function with 
+## j being NULL vector.it also includes a list containing clear data for the function being run.
+
+makeCacheMatrix <- function(x = matrix()) {
+  j <- NULL
+  set <- function(y){
+    x <<- y
+    j <<- NULL
+  }
+  get <- function()x
+  setInverse <- function(inverse) j <<- inverse
+  getInverse <- function() j 
+  list(set = set, get = get, 
+       setInverse = setInverse, 
+       getInverse = getInverse)
+}
+
+##the below code is generated to form a cachesolve with filter function including a character vector to 
+##form the not logical function,if function and return function.
+
+cacheSolve <- function(x, ...) {
+  y<<- x
+  j <- x$getInverse()
+  if(!is.null(j)){
+    message("getting cached data")
+    return(j)
+  }
+  mat <- x$get()
+  j <- solve(mat,...)
+  x$setInverse(j)
+  j
+}
